@@ -212,152 +212,103 @@ enums:
     courses:
         0x0:
             id: course_26
-            doc: Course 26
         0x1:
             id: course_33
-            doc: Course 33
         0x2:
             id: course_15
-            doc: Course 15
         0x3:
             id: course_20
-            doc: Course 20
         0x4:
             id: course_16
-            doc: Course 16
         0x5:
             id: course_10
-            doc: Course 10
         0x6:
             id: course_07
-            doc: Course 07
         0x7:
             id: course_01
-            doc: Course 01
         0x8:
             id: course_17
-            doc: Course 17
         0x9:
             id: course_12
-            doc: Course 12
         0xa:
             id: course_13
-            doc: Course 13
         0xb:
             id: course_29
-            doc: Course 29
         0xc:
             id: course_04
-            doc: Course 04
         0xd:
             id: course_09
-            doc: Course 09
         0xe:
             id: course_03
-            doc: Course 03
         0xf:
             id: course_02
-            doc: Course 02
         0x10:
             id: course_08
-            doc: Course 08
         0x11:
             id: course_11
-            doc: Course 11
         0x12:
             id: course_35
-            doc: Course 35
         0x13:
             id: course_34
-            doc: Course 34
         0x14:
             id: course_30
-            doc: Course 30
         0x15:
             id: course_21
-            doc: Course 21
         0x16:
             id: course_22
-            doc: Course 22
         0x17:
             id: course_01_after_boss
-            doc: Course 01 ( After Boss Fight )
         0x18:
             id: course_19
-            doc: Course 19
         0x19:
             id: course_05
-            doc: Course 05
         0x1a:
             id: course_36
-            doc: Course 36
         0x1b:
             id: course_24
-            doc: Course 24
         0x1c:
             id: course_25
-            doc: Course 25
         0x1d:
             id: course_32
-            doc: Course 32
         0x1e:
             id: course_27
-            doc: Course 27
         0x1f:
             id: course_28
-            doc: Course 28
         0x20:
             id: course_18
-            doc: Course 18
         0x21:
             id: course_14
-            doc: Course 14
         0x22:
             id: course_38
-            doc: Course 38
         0x23:
             id: course_39
-            doc: Course 39
         0x24:
             id: course_03_after_boss
-            doc: Course 03 ( After Boss Fight )
         0x25:
             id: course_37
-            doc: Course 37
         0x27:
             id: course_23
-            doc: Course 23
         0x28:
             id: course_40
-            doc: Course 40
         0x29:
             id: course_06
-            doc: Course 06
         0x2a:
             id: course_31
-            doc: Course 31
 
     powerups:
         0x0:
             id: small_wario
-            doc: Small Wario
         0x1:
             id: wario
-            doc: Wario
         0x2:
             id: bull_wario
-            doc: Bull Wario
         0x3:
             id: jet_wario
-            doc: Jet Wario
         0x4:
             id: dragon_wario
-            doc: Dragon Wario
 
     progression:
         0x0:
             id: incomplete
-            doc: -----
         0x1:
-            id: completed
-            doc: Completed
+            id: complete
