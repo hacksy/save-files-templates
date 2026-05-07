@@ -1,0 +1,226 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+enum <ubyte> Language {    English = 0x0,    French  = 0x1,    German  = 0x2,};
+enum <ubyte> Ranking {    Newest          = 0x0,    ModeratelyNew   = 0x1,    ModeratelyOld   = 0x2,    Oldest          = 0x3,};
+
+enum <ubyte> SoundMode {    Stereo  = 0x0,    Mono    = 0x1,    Headset = 0x2,};
+
+typedef struct {    Ranking BobOmbBattlefield :2 <read=RankingToString(this)>;    Ranking WhompsFortress    :2 <read=RankingToString(this)>;    Ranking JollyRogerBay     :2 <read=RankingToString(this)>;    Ranking CoolCoolMountain  :2 <read=RankingToString(this)>;} Group_1_4;typedef struct {    Ranking BigBoosHaunt   :2 <read=RankingToString(this)>;    Ranking HazyMazeCave   :2 <read=RankingToString(this)>;    Ranking LethalLavaLand :2 <read=RankingToString(this)>;    Ranking ShiftingSandLand :2 <read=RankingToString(this)>;} Group_5_8;typedef struct {    Ranking DireDireDocks    :2 <read=RankingToString(this)>;    Ranking SnowmansLand     :2 <read=RankingToString(this)>;    Ranking WetDryWorld      :2 <read=RankingToString(this)>;    Ranking TallTallMountain :2 <read=RankingToString(this)>;} Group_9_12;typedef struct {    Ranking TinyHugeIsland :2 <read=RankingToString(this)>;    Ranking TickTockClock  :2 <read=RankingToString(this)>;    Ranking RainbowRide    :2 <read=RankingToString(this)>;    ubyte unused           :2 <hidden=true>;} Group_13_15;
+
+typedef struct {    /* -------- Mario 1 --------*/    Group_13_15 m1_courses_13_15;    Group_9_12  m1_courses_9_12;    Group_5_8   m1_courses_5_8;    Group_1_4   m1_courses_1_4;    /* -------- Mario 2 -------- */    Group_13_15 m2_courses_13_15;    Group_9_12  m2_courses_9_12;    Group_5_8   m2_courses_5_8;    Group_1_4   m2_courses_1_4;    /* -------- Mario 3 --------*/    Group_13_15 m3_courses_13_15;    Group_9_12  m3_courses_9_12;    Group_5_8   m3_courses_5_8;    Group_1_4   m3_courses_1_4;    /* -------- Mario 4 -------- */    Group_13_15 m4_courses_13_15;    Group_9_12  m4_courses_9_12;    Group_5_8   m4_courses_5_8;    Group_1_4   m4_courses_1_4;} Score <bgcolor=cPurple>;
+
+enum <ubyte> StatusEnum {OK=1,MISSING=0};
+enum <ubyte> LevelStatus {NOT_COMPLETED=0, COMPLETED=1};
+enum <ubyte> FLAG {False=0, True=1};
+enum <ubyte> Course {
+    None=0x0,    BobOmbBattlefield = 0x1,    WhompsFortress    = 0x2,    JollyRogerBay     = 0x3,    CoolCoolMountain  = 0x4,    BigBoosHaunt      = 0x5,    HazyMazeCave      = 0x6,    LethalLavaLand    = 0x7,    ShiftingSandLand  = 0x8,    DireDireDocks     = 0x9,    SnowmansLand      = 0xA,    WetDryWorld       = 0xB,    TallTallMountain  = 0xC,    TinyHugeIsland    = 0xD,    TickTockClock     = 0xE,    RainbowRide       = 0xF,};
+typedef struct{
+    int16 value <hidden=true>;
+} DA <fgcolor=cAqua>;
+
+typedef struct{
+    int16 value <hidden=true>;
+} HI <fgcolor=cAqua>;
+
+typedef struct{
+  LevelStatus star1:1;
+  LevelStatus star2:1;
+  LevelStatus star3:1;
+  LevelStatus star4:1;
+  LevelStatus star5:1;
+  LevelStatus star6:1;
+  LevelStatus oneHundredCoinsStart:1;
+  LevelStatus cannonFromNextLevel:1;
+} LevelData;
+enum <ubyte> CapLocations{
+   MariosHead=0x0,
+   OnTheGround=0x1,
+   KleptoTalon=0x2,
+   UkikiHead=0x4,
+   MrBlizzarHead=0x8
+};
+typedef struct{
+  CapLocations locations:4;
+  FLAG StarDoortoClockRoomOpenOnce:1  <comment="50 Star Door Open">;
+  FLAG unknown:3 <hidden=true>;
+} CastleFlags1;
+
+typedef struct{
+  FLAG DDDPortal:1 <comment="DDD Portal Moved">;
+  FLAG castleMoatDrained:1 <comment="Castle Moat Drained">;
+  FLAG PrincessSecretSlideDoorUnlocked:1 <comment="Princess Secret Slide Door Unlocked">;
+  FLAG WhompsFortressDoorUnlocked:1 <comment="Whomps Fortress Door Unlocked">;
+  FLAG CoolCoolMountainDoorUnlocked:1 <comment="Cool, Cool Mountain Door Unlocked">;
+  FLAG JollyRogerBayDoorUnlocked:1 <comment="Jolly Roger Bay Door Unlocked">;
+  FLAG BowserFirstKeyDoorUnlocked:1 <comment="Bowser 1 Star Door Unlocked">;
+  FLAG BowserSecondKeyDoorUnlocked:1 <comment="Bowser 2 Star Door Unlocked">;
+} CastleFlags2;
+
+typedef struct{
+  FLAG isValidFile:1;
+  FLAG wingCapEnabled:1 <comment="Wing P Cap">;
+  FLAG metalCap:1 <comment="Metal Cap">;
+  FLAG vanishCap:1;
+  FLAG BowserOneKey:1 <comment="Bowser 1 Key">;
+  FLAG BowserTwoKey:1 <comment="Bowser 2 Key">;
+  FLAG BasementKeyUsed:1 <comment="Basement 1 Key">;
+  FLAG SecondFloorKeyUsed:1 <comment="SecondFloor 2 Key">;
+} CastleFlags3;
+
+typedef struct{
+  FLAG unknown:1;
+  FLAG unknown:1;
+  FLAG unknown:1;
+  FLAG unknown:1;
+  FLAG unknown:1;
+  FLAG unknown:1;
+  FLAG unknown:1;
+  FLAG unknown:1;
+} CastleSecretStarts;
+
+
+typedef struct{
+  FLAG TheSecretAquariumRedCoins:1;
+  FLAG unknown:6 <hidden=true>;
+  FLAG BobombCannonOpenWingMarioOvertheRainbow:1;
+} FlagList;
+
+typedef struct{
+  FLAG normalBlock:1;
+  FLAG lessThanTwentySeconds:1;
+  FLAG none:6 <hidden=true>;
+} PrincessSecretSlide <fgcolor=cGreen>;
+
+
+typedef struct{
+    ubyte Bob_ombBattlefield <fgcolor=cGreen, bgcolor=cNone>;
+    ubyte WhompsFortress <fgcolor=cAqua, bgcolor=cNone>;
+    ubyte JollyRogerBay <fgcolor=cGreen, bgcolor=cNone>;
+    ubyte CoolCoolMountain <fgcolor=cAqua, bgcolor=cNone>;
+    ubyte BigBoosHaunt <fgcolor=cGreen, bgcolor=cNone>;
+    ubyte HazyMazeCave <fgcolor=cAqua, bgcolor=cNone>;
+    ubyte LethalLavaLand <fgcolor=cGreen, bgcolor=cNone>;
+    ubyte ShiftingSandLand <fgcolor=cAqua, bgcolor=cNone>;
+    ubyte DireDireDocks <fgcolor=cGreen, bgcolor=cNone>;
+    ubyte SnowmansLand <fgcolor=cAqua, bgcolor=cNone>;
+    ubyte WetDryWorld <fgcolor=cGreen, bgcolor=cNone>;
+    ubyte TallTallMountain <fgcolor=cPurple, bgcolor=cNone>;
+    ubyte TinyHugeIsland <fgcolor=cAqua, bgcolor=cNone>;
+    ubyte TickTockClock <fgcolor=cPurple, bgcolor=cNone>;
+    ubyte RainbowRide <fgcolor=cAqua, bgcolor=cNone>;
+} LevelCoins;
+
+typedef struct{
+    LevelData Bob_ombBattlefield <fgcolor=cGreen, bgcolor=cNone,comment="Bob-omb Battlefield - Level 1">;
+    LevelData WhompsFortress <fgcolor=cAqua, bgcolor=cNone,comment="Whomp's Fortress - Level 2">;
+    LevelData JollyRogerBay <fgcolor=cPurple, bgcolor=cNone,comment="Jolly Roger Bay - Level 3">;
+    LevelData CoolCoolMountain <fgcolor=cGreen, bgcolor=cNone,comment="Cool, Cool Mountain">;    
+    LevelData BigBoosHaunt <fgcolor=cPurple, bgcolor=cNone,comment="Big Boo's Haunt - Level 5">;
+    LevelData HazyMazeCave <fgcolor=cAqua, bgcolor=cNone,comment="Hazy Maze Cave - Level 6">;
+    LevelData LethalLavaLand <fgcolor=cPurple, bgcolor=cNone,comment="Lethal Lava Land - Level 7">;
+    LevelData ShiftingSandLand <fgcolor=cGreen, bgcolor=cNone,comment="Shifting Sand Land - Level 8">;
+    LevelData DireDireDocks <fgcolor=cPurple, bgcolor=cNone,comment="Dire Dire Docks - Level 9">;
+    LevelData SnowmansLand <fgcolor=cGreen, bgcolor=cNone,comment="Snowman's Land - Level 10">;
+    LevelData WetDryWorld <fgcolor=cPurple, bgcolor=cNone,comment="Wet Dry World - Level 11">;
+    LevelData TallTallMountain <fgcolor=cAqua, bgcolor=cNone,comment="Tall Tall Mountain - Level 12">;
+    LevelData TinyHugeIsland <fgcolor=cGreen, bgcolor=cNone,comment="Tiny Huge Island - Level 13">;
+    LevelData TickTockClock <fgcolor=cAqua, bgcolor=cNone,comment="Tick Tock Clock - Level 14">;
+    LevelData RainbowRide <fgcolor=cYellow, bgcolor=cNone,comment="Rainbow Ride - Level 15">;
+} LevelDataInfo;
+
+typedef struct{
+    FLAG MetalCapRedCoins <fgcolor=cAqua, bgcolor=cNone>; //00 not , 01 ok
+    FLAG WingPCapRedCoints <fgcolor=cGreen, bgcolor=cNone>; //00 not , 01 ok
+    FLAG VanishCapRedCoints <fgcolor=cAqua, bgcolor=cNone>; //00 not , 01 ok
+    FLAG MarioWingsOverTheRainbowCoin <fgcolor=cGreen, bgcolor=cNone>; //00 not , 01 ok
+} CapInfo;
+
+typedef struct{
+    FLAG bowser1RedCoins <fgcolor=cGreen, bgcolor=cNone>;//00 not , 01 ok
+    FLAG bowser2RedCoins <fgcolor=cAqua, bgcolor=cNone>;//00 not , 01 ok
+    FLAG bowser3RedCoins <fgcolor=cPurple, bgcolor=cNone>;//00 not , 01 ok
+    PrincessSecretSlide princessSecretSlide;
+    CapInfo capInfo <fgcolor=cYellow, bgcolor=cNone>; 
+    FlagList PrincessSecretAquarium <fgcolor=cGreen, bgcolor=cNone>;//00 not , 01 ok
+    byte unused <fgcolor=cYellow, bgcolor=cNone>;//Cake Screen
+} CastleSecretStars;
+
+
+typedef struct{
+  FLAG toadHazyMazeCaveStar:1 <comment = "Toad Star HMC">;
+  FLAG toadSecondFloorStar:1 <comment = "Toad Star Upstairs">;
+  FLAG toadTickTockOClockStar:1 <comment = "Toad Star TTC">;
+  FLAG mpis16Star:1  <comment = "MPIS 16 Star">;
+  FLAG mpis50Star:1  <comment = "MPIS 50 Star">;
+  FLAG none:1 <hidden=true> ;
+  FLAG none:1 <hidden=true> ;
+  FLAG none:1 <hidden=true> ;
+} CastleStars;
+
+typedef struct{
+    Course course;
+    uint8 area;
+    uint16 PositionX;
+    uint16 PositionY;
+    uint16 PositionZ;
+} MarioCapLocation;
+
+typedef struct{
+    MarioCapLocation location <fgcolor=cBlue>;
+    CastleStars castleStars <fgcolor=cPurple, bgcolor=cNone>;
+    CastleFlags1 castleFlags1 <fgcolor=cAqua, bgcolor=cNone>;
+    CastleFlags2 castleFlags2  <fgcolor=cGreen, bgcolor=cNone>;
+    CastleFlags3 castleFlags3  <fgcolor=cAqua, bgcolor=cNone>;
+    LevelDataInfo levelData;
+    CastleSecretStars castleSecretStars;
+    LevelCoins levelCoins;
+    DA da;
+    uint16 checksum <fgcolor=cGreen, bgcolor=cNone>;
+}SaveFile;
+
+
+
+typedef struct{
+    Score score;
+    byte unknown <hidden=true>;
+    SoundMode soundMode <read=SoundModeToString(this),fgcolor=cGreen>;
+    byte unknown <hidden=true>;
+    Language language <read=LanguageToString(this),fgcolor=cGreen>;
+    byte unknown10[8] <hidden=true>;
+    HI hi;
+    int16 checksum <fgcolor=cGreen>;
+}MenuFile;
+
+struct{
+    LittleEndian();
+    SaveFile saveFileA;
+    SaveFile saveFileABackup;
+    SaveFile saveFileB;
+    SaveFile saveFileBBackup;
+    SaveFile saveFileC;
+    SaveFile saveFileCBackup;
+    SaveFile saveFileD;
+    SaveFile saveFileDBackup;
+    MenuFile menuFile;
+    MenuFile menuFileBackup;
+} Mario64;
+
+string SoundModeToString(ubyte v){    switch (v)    {        case Stereo:  return "Stereo";        case Mono:    return "Mono";        case Headset: return "Headset";    }    return Str("Unknown (%d)", v);}
+string CourseToString(Course c){    switch (c)    {
+        case None: return "---";        case BobOmbBattlefield: return "Bob-omb Battlefield";        case WhompsFortress:    return "Whomp's Fortress";        case JollyRogerBay:     return "Jolly Roger Bay";        case CoolCoolMountain:  return "Cool, Cool Mountain";        case BigBoosHaunt:      return "Big Boo's Haunt";        case HazyMazeCave:      return "Hazy Maze Cave";        case LethalLavaLand:    return "Lethal Lava Land";        case ShiftingSandLand:  return "Shifting Sand Land";        case DireDireDocks:     return "Dire, Dire Docks";        case SnowmansLand:      return "Snowman's Land";        case WetDryWorld:       return "Wet-Dry World";        case TallTallMountain:  return "Tall, Tall Mountain";        case TinyHugeIsland:    return "Tiny-Huge Island";        case TickTockClock:     return "Tick Tock Clock";        case RainbowRide:       return "Rainbow Ride";    }    return Str("Unknown (%d)", c);}
+
+
+
+string RankingToString(ubyte r){    switch (r)    {        case Newest:        return "Newest";        case ModeratelyNew: return "Moderately New";        case ModeratelyOld: return "Moderately Old";        case Oldest:        return "Oldest";    }    return Str("Unknown (%d)", r);}
+
+string LanguageToString(ubyte v){    switch (v)    {        case English: return "English";        case French:  return "French";        case German:  return "German";    }    return Str("Unknown (%d)", v);}

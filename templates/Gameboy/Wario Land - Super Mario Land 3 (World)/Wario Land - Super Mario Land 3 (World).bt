@@ -1,0 +1,136 @@
+//------------------------------------------------
+//--- 010 Editor v16.0.4 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+#include "helpers/colors.bt"
+#include "helpers/structs.bt"
+
+
+typedef struct{
+    local ubyte header[4] = {0x19,0x64,0x39,0x57};
+    Validator value(header);    
+} Header;
+
+typedef struct{
+    ubyte raw[3] <hidden=true>;       
+} Coins <fgcolor=cLtBlue,read=Str("Coins: %s",ReadBCD24(raw))>;
+
+typedef struct{
+    ubyte raw <hidden=true>;     
+} Hearts <fgcolor=cPink,read=Str("Hearts: %s",ReadBCD8(raw))>;
+
+typedef struct{
+    ubyte raw <hidden=true>;    
+} Lives <fgcolor=cPink,read=Str("Lives: %s",ReadBCD8(raw))>;
+
+enum <ubyte> PowerUpsEnum{
+    Small_Wario =0,Wario=1,Bull_Wario=2,Jet_Wario=3,Dragon_Wario=4
+};
+
+typedef struct{
+    PowerUpsEnum value <hidden=true>;    
+} PowerUps <fgcolor=cAqua,read=EnumToString(value)>;
+
+enum <ubyte> ProgressionEnum{
+    Incomplete =0,Complete=1,
+};
+
+typedef struct{
+    ProgressionEnum value <hidden=true>;    
+} Progression <fgcolor=cAqua,read=EnumToString(value)>;
+/****/
+typedef struct{    ubyte course01 : 1;    ubyte course02 : 1;    ubyte course03 : 1;    ubyte course03_alt : 1;    ubyte course04 : 1;    ubyte course05 : 1;    ubyte course06 : 1;    ubyte ____ : 1;} RiceBeachFlags <fgcolor=cGreen>;
+
+typedef struct{    ubyte course07 : 1;    ubyte course08 : 1;    ubyte course08_alt : 1;    ubyte course09 : 1;    ubyte course10 : 1;    ubyte course11 : 1;    ubyte course12 : 1;    ubyte course13 : 1;} MtTeapotFlags <fgcolor=cPurple>;
+
+typedef struct{    ubyte course20 : 1;    ubyte course21 : 1;    ubyte course22 : 1;    ubyte course23 : 1;    ubyte course23_alt : 1;    ubyte course24 : 1;    ubyte course25 : 1;    ubyte ____ : 1;} StoveCanyonFlags <fgcolor=cGreen>;
+
+typedef struct{    ubyte course31 : 1;    ubyte course32 : 1;    ubyte course33 : 1;    ubyte course34 : 1;    ubyte course35 : 1;    ubyte course36 : 1;    ubyte ____ : 2;} ParsleyWoodsFlags <fgcolor=cPink>;
+
+typedef struct{    ubyte course14 : 1;    ubyte course15 : 1;    ubyte course15_alt : 1;    ubyte course16 : 1;    ubyte course16_alt : 1;    ubyte course17 : 1;    ubyte course18 : 1;    ubyte course19 : 1;} SherbetIslandFlags <fgcolor=cLtBlue>;
+
+typedef struct{    ubyte course37 : 1;    ubyte course38 : 1;    ubyte course39 : 1;    ubyte ____ : 5;} SyrupCastleFlags <fgcolor=cPink>;
+
+typedef struct{    ubyte course26 : 1;    ubyte course27 : 1;    ubyte course28 : 1;    ubyte course29 : 1;    ubyte course20_repeat : 1;    ubyte ____ : 3;} SSTeaCupFlags  <fgcolor=cPurple>;
+/***/
+
+
+enum <ubyte> CourseEnum {    Course26 = 0x0,    Course33 = 0x1,    Course15 = 0x2,    Course20 = 0x3,    Course16 = 0x4,    Course10 = 0x5,    Course07 = 0x6,    Course01 = 0x7,    Course17 = 0x8,    Course12 = 0x9,    Course13 = 0xA,    Course29 = 0xB,    Course04 = 0xC,    Course09 = 0xD,    Course03 = 0xE,    Course02 = 0xF,    Course08 = 0x10,    Course11 = 0x11,    Course35 = 0x12,    Course34 = 0x13,    Course30 = 0x14,    Course21 = 0x15,    Course22 = 0x16,    Course01_AfterBoss = 0x17,    Course19 = 0x18,    Course05 = 0x19,    Course36 = 0x1A,    Course24 = 0x1B,    Course25 = 0x1C,    Course32 = 0x1D,    Course27 = 0x1E,    Course28 = 0x1F,    Course18 = 0x20,    Course14 = 0x21,    Course38 = 0x22,    Course39 = 0x23,    Course03_AfterBoss = 0x24,    Course37 = 0x25,    /* 0x26 unused */    Course23 = 0x27,    Course40 = 0x28,    Course06 = 0x29,    Course31 = 0x2A};
+
+typedef struct{
+    CourseEnum value <hidden=true>;    
+} Course <fgcolor=cAqua,read=EnumToString(value)>;
+
+typedef struct{
+    ubyte value;
+} SmallChecksum <fgcolor=cAqua>;
+
+typedef struct{
+    ubyte value <hidden=true>;
+} CurrenSlot <fgcolor=cPurple,read=Str("%d",value+1)>;
+
+typedef struct{    ubyte unused0        : 1;    ubyte crown          : 1 <name=TreasureC_Label>;    ubyte dagger         : 1 <name=TreasureI_Label>;    ubyte lamp           : 1 <name=TreasureF_Label>;    ubyte diamond_ring   : 1 <name=TreasureO_Label>;    ubyte golden_horn    : 1 <name=TreasureA_Label>;    ubyte whale          : 1 <name=TreasureN_Label>;    ubyte chalice        : 1 <name=TreasureH_Label>;} TreasureFlagsA <fgcolor=cAqua>;
+
+typedef struct{    ubyte golden_glove : 1 <name=TreasureM_Label>;    ubyte idol         : 1 <name=TreasureL_Label>;    ubyte football     : 1 <name=TreasureK_Label>;    ubyte harp         : 1 <name=TreasureB_Label>;    ubyte shield       : 1 <name=TreasureD_Label>;    ubyte crystal_ball : 1 <name=TreasureG_Label>;    ubyte axe          : 1 <name=TreasureJ_Label>;    ubyte bell         : 1 <name=TreasureE_Label>;} TreasureFlagsB <fgcolor=cLtBlue>;
+
+typedef struct{
+    StatusEnum value <hidden=true>;
+} CheckPointStatus <fgcolor=cPurple,read=EnumToString(value)>;
+
+typedef struct{
+    
+    Header header;
+    Course currentCourse;
+    Coins coins;
+    Hearts hearts;
+    Lives lives;
+    PowerUps powerUps;
+    RiceBeachFlags riceBeachFlags <name="Level 1: Rice Beach">;
+    MtTeapotFlags mtTeapotFlags <name="Level 2: Mt. Teapot">;
+    ubyte CompletedCoursecount <fgcolor=cGreen>;
+    TreasureFlagsA treasureSetA;
+    TreasureFlagsB treasureSetB;
+    StoveCanyonFlags stoveCanyonFlags <name="Level 4: Stove Canyon">;
+    SSTeaCupFlags flagsSSTeaCupFlags <name="Level 5: SS Tea Cup">;
+    ParsleyWoodsFlags parsleyWoodsFlags <name="Level 6: Parsley Woods">;
+    SherbetIslandFlags sherbetIslandFlags <name="Level 3: Sherbet Island">;
+    SyrupCastleFlags syrupCastleFlags <name="Level 7: Syrup Castle">;
+    CheckPointStatus checkpointStatus;
+    Course checkpointCourse;
+    Progression progression;
+    ubyte unknown8[8];
+} Slot;
+
+struct{
+    Slot slot1 <fgcolor=cYellow>;
+    Slot slot1Mirror  <fgcolor=cGray>;
+    Slot slot2  <fgcolor=cGray>;
+    Slot slot2Mirror  <fgcolor=cGray>;
+    Slot slot2  <fgcolor=cGray>;
+    Slot slot3Mirror  <fgcolor=cGray>;
+    SmallChecksum checksumSave1;
+    SmallChecksum checksumSave2;
+    SmallChecksum checksumSave3;
+    CurrenSlot currentSlot;
+} GameDataFile;
+
+
+
+#include "helpers/methods.bt"
+
+
+string ReadBCD24(ubyte raw[3]){    return Str(        "%d%d%d%d%d%d",        (raw[0] >> 4) & 0xF, raw[0] & 0xF,        (raw[1] >> 4) & 0xF, raw[1] & 0xF,        (raw[2] >> 4) & 0xF, raw[2] & 0xF    );}
+string ReadBCD8(ubyte b){    local int hi = (b >> 4) & 0xF;    local int lo = b & 0xF;    /* optional: validate BCD */    if (hi > 9 || lo > 9)        return Str("INVALID(%02X)", b);    return Str("%d%d", hi, lo);}
+
+
+string TreasureA_Label(ubyte v) { return Str("Treasure A: Golden Horn (%d)", v); }string TreasureC_Label(ubyte v) { return Str("Treasure C: Crown (%d)", v); }string TreasureF_Label(ubyte v) { return Str("Treasure F: Lamp (%d)", v); }string TreasureO_Label(ubyte v) { return Str("Treasure O: Diamond Ring (%d)", v); }string TreasureN_Label(ubyte v) { return Str("Treasure N: Whale (%d)", v); }string TreasureH_Label(ubyte v) { return Str("Treasure H: Chalice (%d)", v); }string TreasureI_Label(ubyte v) { return Str("Treasure I: Dagger (%d)", v); }
+string TreasureB_Label(ubyte v) { return Str("Treasure B: Harp (%d)", v); }string TreasureD_Label(ubyte v) { return Str("Treasure D: Shield (%d)", v); }string TreasureE_Label(ubyte v) { return Str("Treasure E: Bell (%d)", v); }string TreasureG_Label(ubyte v) { return Str("Treasure G: Crystal Ball (%d)", v); }string TreasureJ_Label(ubyte v) { return Str("Treasure J: Axe (%d)", v); }string TreasureK_Label(ubyte v) { return Str("Treasure K: Football (%d)", v); }string TreasureL_Label(ubyte v) { return Str("Treasure L: Idol (%d)", v); }string TreasureM_Label(ubyte v) { return Str("Treasure M: Golden Glove (%d)", v); }

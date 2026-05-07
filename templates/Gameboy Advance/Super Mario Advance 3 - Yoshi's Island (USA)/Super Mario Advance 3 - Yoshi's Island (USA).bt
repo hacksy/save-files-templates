@@ -1,0 +1,17 @@
+//------------------------------------------------
+//--- 010 Editor v16.0.4 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "helpers/colors.bt";
+#include "helpers/structs.bt";
+
+
+#include "helpers/methods.bt";
