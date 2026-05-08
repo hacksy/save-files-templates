@@ -1,0 +1,37 @@
+//------------------------------------------------
+//--- 010 Editor v16.0.4 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+
+typedef struct{
+    local uint location = FTell();
+    uint16 saveLength <fgcolor=cPurple>;
+    uint16 checksum <fgcolor=cLtGreen>;
+    int16 idenfitifer <hidden=true,fgcolor=cLtGreen>;
+    char entryName[10] <fgcolor=cPurple>;
+    
+    ubyte currentWorld <fgcolor=cLtBlue>;
+    ubyte currentLevel <fgcolor=cLtBlue>;
+    ubyte bombLevel <fgcolor=cAqua>;
+    ubyte fireLevel <fgcolor=cBlue>;
+    ubyte hasShoes <fgcolor=cAqua>;
+} DataFile <name=Str("World %d-%d", currentWorld+1, currentLevel+1), read=(CalculateChecksum(location,this) == checksum? "OK": Str("Expected: 0x%04X", CalculateChecksum(location,this)))>;
+
+struct {
+    ubyte placeholderforNow[16] <fgcolor=cYellow>;
+    DataFile dataFileSlot1;
+    DataFile dataFileSlot2;
+    DataFile dataFileSlot3;
+} BombermanPCEngineSaveDatafile;
+
+
+uint16 CalculateChecksum(uint location, DataFile &file){    local uint32 sum = 0;    local int i;    for(i = location+4; i < location + file.saveLength; i++)    {        sum += ReadUByte(i);    }    return (0x10000 - (sum & 0xFFFF)) & 0xFFFF;}
