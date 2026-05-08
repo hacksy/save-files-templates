@@ -1,0 +1,94 @@
+FSeek(0xA00);
+
+enum <ubyte> FlagState {    OFF = 0,    ON  = 1};
+
+enum <ubyte> BlockedPathEnum{
+    CLOSED=0,OPEN=1    
+};
+
+typedef struct{
+   BlockedPathEnum level_1_Bottom_Rock:1;
+   BlockedPathEnum level_1_Right_Rock:1;
+   BlockedPathEnum level_2_Bottom_Rock:1;
+   BlockedPathEnum unknown:1;
+   BlockedPathEnum unknown:1;
+   BlockedPathEnum unknown:1;
+   BlockedPathEnum unknown:1;
+   BlockedPathEnum unknown:1;     
+} BlockedPaths <fgcolor=cYellow>;
+
+typedef struct{
+    ubyte validator[6] <hidden=true>;
+} Header <fgcolor=cGreen>;
+
+typedef struct (uint startX, uint endX){
+    local uint start = startX;
+    local uint end = endX;
+    uint16 current;
+} Checksum <fgcolor=cPurple,read=Str("0x%04x", GenerateChecksum(start,end))>;
+
+typedef struct {    /* 0xA0E */    FlagState level_1_1 : 1 <name="Level 1-1">;    FlagState level_1_2 : 1 <name="Level 1-2">;    FlagState level_1_3 : 1 <name="Level 1-3">;    FlagState level_1_4 : 1 <name="Level 1-4">;    FlagState level_1_5 : 1 <name="Level 1-5">;    FlagState level_1_6 : 1 <name="Level 1-6">;    FlagState level_1_7 : 1 <name="Level 1-7">;    FlagState level_1_8 : 1 <name="Level 1-8">;    /* 0xA0F */    FlagState level_1_9  : 1 <name="Level 1-9">;    FlagState level_1_10 : 1 <name="Level 1-10">;    uchar padding        : 6 <hidden=true>;} World1Flags <fgcolor=cAqua>;
+
+typedef struct {    FlagState level_2_1 : 1 <name="Level 2-1">;    FlagState level_2_2 : 1 <name="Level 2-2">;    FlagState level_2_3 : 1 <name="Level 2-3">;    FlagState level_2_4 : 1 <name="Level 2-4">;    FlagState level_2_5 : 1 <name="Level 2-5">;    FlagState level_2_6 : 1 <name="Level 2-6">;    FlagState level_2_7 : 1 <name="Level 2-7">;    FlagState level_2_8 : 1 <name="Level 2-8">;
+    ubyte filler <hidden=true>;} World2Flags <fgcolor=cAqua>;
+
+typedef struct {    FlagState level_3_1 : 1 <name="Level 3-1">;    FlagState level_3_2 : 1 <name="Level 3-2">;    FlagState level_3_3 : 1 <name="Level 3-3">;    FlagState level_3_4 : 1 <name="Level 3-4">;    FlagState level_3_5 : 1 <name="Level 3-5">;    FlagState level_3_6 : 1 <name="Level 3-6">;    FlagState level_3_7 : 1 <name="Level 3-7">;    FlagState level_3_8 : 1 <name="Level 3-8">;
+    ubyte filler <hidden=true>;} World3Flags <fgcolor=cGreen>;
+
+typedef struct {    FlagState level_4_1 : 1 <name="Level 4-1">;    FlagState level_4_2 : 1 <name="Level 4-2">;    FlagState level_4_3 : 1 <name="Level 4-3">;    FlagState level_4_4 : 1 <name="Level 4-4">;    FlagState level_4_5 : 1 <name="Level 4-5">;    FlagState level_4_6 : 1 <name="Level 4-6">;    FlagState level_4_7 : 1 <name="Level 4-7">;    FlagState level_4_8 : 1 <name="Level 4-8">;
+    ubyte filler <hidden=true>;} World4Flags <fgcolor=cAqua>;
+
+typedef struct{
+    ubyte World <hidden=true>;
+    ubyte Level <hidden=true>;
+} Level <fgcolor=cDkGreen,read=Str("Level %d-%d", World+1, Level+1), name="Current Level">;
+
+typedef struct{
+    ubyte hours <hidden=true>;
+    ubyte minutes <hidden=true>;
+    ubyte seconds <hidden=true>;    
+} Playtime <fgcolor=cGreen,read=Str("%02d:%02d:%02d", hours, minutes, seconds), name="Playtime">;
+
+typedef struct{    /* 0xA1F */    struct {        FlagState level_2_4 : 1 <name="Level 2-4">;        FlagState level_2_6 : 1 <name="Level 2-6">;        FlagState level_1_7 : 1 <name="Level 1-7">;        FlagState level_2_3 : 1 <name="Level 2-3">;        FlagState level_2_1 : 1 <name="Level 2-1">;        FlagState level_1_8 : 1 <name="Level 1-8">;        FlagState level_1_1 : 1 <name="Level 1-1">;        FlagState level_1_2 : 1 <name="Level 1-2">;    } _A1F;    /* 0xA20 */    struct {        FlagState level_4_2         : 1 <name="Level 4-2">;        FlagState unused_0          : 1 <hidden=true>;        FlagState level_1_5         : 1 <name="Level 1-5">;        FlagState level_4_6_bonus_2 : 1 <name="Level 4-6 (Bonus Room 2)">;        FlagState level_1_4         : 1 <name="Level 1-4">;        FlagState level_1_6         : 1 <name="Level 1-6">;        FlagState level_1_3         : 1 <name="Level 1-3">;        FlagState level_2_7         : 1 <name="Level 2-7">;    } _A20;    /* 0xA21 */    struct {        FlagState level_3_5 : 1 <name="Level 3-5">;        FlagState level_3_3 : 1 <name="Level 3-3">;        FlagState level_4_3 : 1 <name="Level 4-3">;        FlagState level_4_5 : 1 <name="Level 4-5">;        FlagState level_3_2 : 1 <name="Level 3-2">;        FlagState level_3_1 : 1 <name="Level 3-1">;        FlagState level_4_1 : 1 <name="Level 4-1">;        FlagState level_2_2 : 1 <name="Level 2-2">;    } _A21;    /* 0xA22 */    struct {        FlagState level_3_4 : 1 <name="Level 3-4">;        FlagState level_4_6 : 1 <name="Level 4-6">;        FlagState level_2_5 : 1 <name="Level 2-5">;        FlagState level_3_6 : 1 <name="Level 3-6">;        FlagState level_4_7 : 1 <name="Level 4-7">;        FlagState level_3_7 : 1 <name="Level 3-7">;        FlagState level_4_4 : 1 <name="Level 4-4">;        FlagState level_1_9 : 1 <name="Level 1-9">;    } _A22;    /* 0xA23 */    struct {        FlagState level_1_5_bonus_3 : 1 <name="Level 1-5 (Bonus Room 3)">;        FlagState level_1_3_bonus_1 : 1 <name="Level 1-3 (Bonus Room 1)">;        FlagState level_1_5_bonus_2 : 1 <name="Level 1-5 (Bonus Room 2)">;        FlagState level_1_7_bonus_2 : 1 <name="Level 1-7 (Bonus Room 2)">;        FlagState level_1_4_bonus_2 : 1 <name="Level 1-4 (Bonus Room 2)">;        FlagState level_4_4_bonus_2 : 1 <name="Level 4-4 (Bonus Room 2)">;        FlagState level_1_2_bonus   : 1 <name="Level 1-2 (Bonus Room)">;        FlagState level_3_8         : 1 <name="Level 3-8">;    } _A23;    /* 0xA24 */    struct {        FlagState level_1_4_bonus_1 : 1 <name="Level 1-4 (Bonus Room 1)">;        FlagState level_1_9_bonus_2 : 1 <name="Level 1-9 (Bonus Room 2)">;        FlagState level_2_7_bonus_1 : 1 <name="Level 2-7 (Bonus Room 1)">;        FlagState level_2_1_bonus_1 : 1 <name="Level 2-1 (Bonus Room 1)">;        FlagState level_1_10        : 1 <name="Level 1-10">;        FlagState level_3_2_bonus_1 : 1 <name="Level 3-2 (Bonus Room 1)">;        FlagState level_1_8_bonus_1 : 1 <name="Level 1-8 (Bonus Room 1)">;        FlagState level_1_1_bonus_1 : 1 <name="Level 1-1 (Bonus Room 1)">;    } _A24;    /* 0xA25 */    struct {        FlagState level_2_8         : 1 <name="Level 2-8">;        FlagState level_3_5_bonus_1 : 1 <name="Level 3-5 (Bonus Room 1)">;        FlagState level_4_7_bonus_1 : 1 <name="Level 4-7 (Bonus Room 1)">;        FlagState level_1_6_bonus_2 : 1 <name="Level 1-6 (Bonus Room 2)">;        FlagState level_1_1_bonus_2 : 1 <name="Level 1-1 (Bonus Room 2)">;        FlagState level_4_1_bonus_1 : 1 <name="Level 4-1 (Bonus Room 1)">;        FlagState level_2_4_bonus_1 : 1 <name="Level 2-4 (Bonus Room 1)">;        FlagState level_4_1_bonus_2 : 1 <name="Level 4-1 (Bonus Room 2)">;    } _A25;    /* 0xA26 */    struct {        FlagState level_3_4_bonus_1 : 1 <name="Level 3-4 (Bonus Room 1)">;        FlagState level_4_3_bonus_2 : 1 <name="Level 4-3 (Bonus Room 2)">;        FlagState level_1_7_bonus_1 : 1 <name="Level 1-7 (Bonus Room 1)">;        FlagState level_3_6_bonus_2 : 1 <name="Level 3-6 (Bonus Room 2)">;        FlagState level_3_4_bonus_2 : 1 <name="Level 3-4 (Bonus Room 2)">;        FlagState level_3_1_bonus_1 : 1 <name="Level 3-1 (Bonus Room 1)">;        FlagState level_4_8         : 1 <name="Level 4-8">;        FlagState unused_1          : 1 <hidden=true>;    } _A26;    /* 0xA27 */    struct {        FlagState level_4_7_bonus_2 : 1 <name="Level 4-7 (Bonus Room 2)">;        FlagState level_3_7_bonus_1 : 1 <name="Level 3-7 (Bonus Room 1)">;        FlagState level_4_3_bonus_1 : 1 <name="Level 4-3 (Bonus Room 1)">;        FlagState level_3_2_bonus_2 : 1 <name="Level 3-2 (Bonus Room 2)">;        FlagState level_4_5_bonus_1 : 1 <name="Level 4-5 (Bonus Room 1)">;        FlagState level_4_2_bonus_1 : 1 <name="Level 4-2 (Bonus Room 1)">;        FlagState level_3_1_bonus_2 : 1 <name="Level 3-1 (Bonus Room 2)">;        FlagState level_3_3_bonus_1 : 1 <name="Level 3-3 (Bonus Room 1)">;    } _A27;    /* 0xA28 */    struct {        FlagState unused_2          : 1 <hidden=true>;        FlagState unused_3          : 1 <hidden=true>;        FlagState unused_4          : 1 <hidden=true>;        FlagState unused_5          : 1 <hidden=true>;        FlagState unused_6          : 1 <hidden=true>;        FlagState unused_7          : 1 <hidden=true>;        FlagState level_3_6_bonus_1 : 1 <name="Level 3-6 (Bonus Room 1)">;        FlagState level_4_6_bonus_1 : 1 <name="Level 4-6 (Bonus Room 1)">;    } _A28;    /* 0xA29 */    struct {        FlagState level_3_7_bonus_2 : 1 <name="Level 3-7 (Bonus Room 2)">;        FlagState level_3_5_bonus_2 : 1 <name="Level 3-5 (Bonus Room 2)">;        FlagState level_1_9_bonus_1 : 1 <name="Level 1-9 (Bonus Room 1)">;        FlagState level_1_8_bonus_2 : 1 <name="Level 1-8 (Bonus Room 2)">;        FlagState level_1_5_bonus_1 : 1 <name="Level 1-5 (Bonus Room 1)">;        FlagState level_1_6_bonus_1 : 1 <name="Level 1-6 (Bonus Room 1)">;        FlagState level_1_3_bonus_2 : 1 <name="Level 1-3 (Bonus Room 2)">;        FlagState level_4_4_bonus_1 : 1 <name="Level 4-4 (Bonus Room 1)">;    } _A29;} VisitedLevels <fgcolor=cAqua, size=11>;
+
+typedef struct{
+    World1Flags world1 <name="World 1">;
+    World2Flags world2 <name="World 2">;
+    World3Flags world3 <name="World 3">;
+    World4Flags world4 <name="World 4">;
+} Worlds;
+
+typedef struct (uint start, uint end){
+    Header header;
+    Level progressionLevel <name="Latest Level">;
+    ubyte unknown6[4];
+    FlagState bombs <fgcolor=cPurple>;
+    BlockedPaths blockedPaths <fgcolor=cYellow>;
+    Worlds worlds <name="Worlds">;
+    byte unknown25[4];
+    Level currentLevel <name="Current Level">;
+    Playtime playtime;
+    VisitedLevels visitedLevels <fgcolor=cAqua>;
+    byte unknown30[20];
+    Checksum checksum(start, end) <name="Checksum">;
+} SaveSlot;
+
+
+
+
+struct{
+    SaveSlot slot1(0xa00, 0xa30);
+    SaveSlot slot2(0xa40, 0xa7d);
+    SaveSlot slot3(0xa80, 0xabd);
+} SaveFile;
+
+
+
+
+
+/*******/
+uint16 GenerateChecksum(uint start, uint end){    local uint i;    local ubyte sum = 0x00;    local ubyte xorv = 0x00;    local ubyte b;    for (i = start; i < end; i++){        b = ReadUByte(i);        sum = (sum + b) & 0xFF;        xorv ^= b;    }    return ((uint16)xorv << 8) | sum;}
+
+
+
+FlagState GetBit(uint start, uint relOffset, int bit) {    local ubyte b = ReadUByte(start + relOffset);    return (b >> bit) & 1;}
